@@ -12,16 +12,16 @@ digraph argument_graph {
 
     // Content nodes
     "C1" [label="SARS-CoV-2 is\ntransmitted primarily by\nthe airborne route.", shape=box, style=filled, fillcolor="#FFD700", color="#DAA520"];
-    "SC1" [label="The transmission\npatterns observed in\nsuperspreading events,\ncharacterized by\nlong-range…", shape=box, style=filled, fillcolor="#6FB1FC", color="#4A90D9"];
+    "SC1" [label="The transmission\npatterns observed in\nsuperspreading events are\ninconsistent with droplet\nor fomite…", shape=box, style=filled, fillcolor="#6FB1FC", color="#4A90D9"];
     "S1" [label="Superspreading events\naccount for substantial\nSARS-CoV-2 transmission", shape=ellipse, style=filled, fillcolor="#F5A45D", color="#D4843D"];
-    "S2" [label="Detailed analyses of\nchoir concerts, cruise\nships, slaughterhouses,\ncare homes, and\ncorrectional…", shape=ellipse, style=filled, fillcolor="#F5A45D", color="#D4843D"];
-    "S3" [label="The observed patterns of\nlong-range transmission\nand overdispersion are\nconsistent with airborne…", shape=ellipse, style=filled, fillcolor="#F5A45D", color="#D4843D"];
-    "SC2" [label="SARS-CoV-2 can spread\nbetween individuals who\nare physically separated\nand have no direct\ncontact,…", shape=box, style=filled, fillcolor="#6FB1FC", color="#4A90D9"];
-    "S4" [label="Long-range transmission\nof SARS-CoV-2 between\npeople in adjacent rooms\nbut never in each\nother's…", shape=ellipse, style=filled, fillcolor="#F5A45D", color="#D4843D"];
-    "SC3" [label="Transmission of\nSARS-CoV-2 occurs through\naerosol particles\ngenerated during normal\nspeech and…", shape=box, style=filled, fillcolor="#6FB1FC", color="#4A90D9"];
-    "S5" [label="Asymptomatic or\npresymptomatic\ntransmission of\nSARS-CoV-2 from people\nwho are not coughing or…", shape=ellipse, style=filled, fillcolor="#F5A45D", color="#D4843D"];
+    "S2" [label="Detailed analyses of\nsuperspreading events\nhave found patterns of\nlong-range transmission\nand…", shape=ellipse, style=filled, fillcolor="#F5A45D", color="#D4843D"];
+    "S3" [label="The observed patterns of\nlong-range transmission\nand overdispersion are\nconsistent with airborne…", shape=box, style=filled, fillcolor="#6FB1FC", color="#4A90D9"];
+    "SC2" [label="SARS-CoV-2 can spread\nbetween individuals who\nare physically separated\nand have no direct\ncontact.", shape=box, style=filled, fillcolor="#6FB1FC", color="#4A90D9"];
+    "S4" [label="Long-range transmission\nof SARS-CoV-2 between\npeople in adjacent rooms\nhas been documented in…", shape=ellipse, style=filled, fillcolor="#F5A45D", color="#D4843D"];
+    "SC3" [label="Transmission occurs\nthrough aerosols\ngenerated during normal\nspeech and breathing,\neven in the…", shape=box, style=filled, fillcolor="#6FB1FC", color="#4A90D9"];
+    "S5" [label="33-59% of all\ntransmission comes from\nnon-coughing/sneezing\nindividuals.", shape=ellipse, style=filled, fillcolor="#F5A45D", color="#D4843D"];
     "S6" [label="Speaking produces\nthousands of aerosol\nparticles and few large\ndroplets", shape=ellipse, style=filled, fillcolor="#F5A45D", color="#D4843D"];
-    "P_7b77a94b" [label="Transmission without\ncoughing or sneezing\nindicates that\ndroplet-based\ntransmission alone\ncannot…", shape=box, style=filled, fillcolor="#C2E0FF", color="#A8CCF0"];
+    "P_7b77a94b" [label="Transmission without\ncoughing/sneezing rules\nout droplets as sole\nmechanism of spread.", shape=box, style=filled, fillcolor="#C2E0FF", color="#A8CCF0"];
     "P_176d8424" [label="Aerosol particles\ngenerated during speech\ncan carry and transmit\nSARS-CoV-2 virus to\nsusceptible…", shape=box, style=filled, fillcolor="#C2E0FF", color="#A8CCF0"];
     "P_7b77a94b_SC3_aux1" [label="Coughing and sneezing\nare the primary\nmechanisms for generating\nlarge respiratory\ndroplets.", shape=box, style=filled, fillcolor="#C2E0FF", color="#A8CCF0"];
     "P_176d8424_SC3_aux1" [label="Aerosol particles are\nsmall enough to remain\nsuspended in air and be\ninhaled into the\nrespiratory…", shape=box, style=filled, fillcolor="#C2E0FF", color="#A8CCF0"];
@@ -59,10 +59,10 @@ digraph argument_graph {
     "S6" -> "link_625127" [color="#5A9A5A", penwidth=1.5];
     "link_625127" -> "P_176d8424" [color="#5A9A5A", penwidth=1.5];
     "P_7b77a94b" -> "link_456fe3" [color="#5A9A5A", penwidth=1.5];
-    "P_7b77a94b_SC3_aux1" -> "link_456fe3" [color="#5A9A5A", penwidth=1.5];
+    "P_7b77a94b_SC3_aux1" -> "link_456fe3" [color="#5A9A5A", penwidth=1.5, style=dashed];
     "link_456fe3" -> "SC3" [color="#5A9A5A", penwidth=1.5];
     "P_176d8424" -> "link_97d56f" [color="#5A9A5A", penwidth=1.5];
-    "P_176d8424_SC3_aux1" -> "link_97d56f" [color="#5A9A5A", penwidth=1.5];
+    "P_176d8424_SC3_aux1" -> "link_97d56f" [color="#5A9A5A", penwidth=1.5, style=dashed];
     "link_97d56f" -> "SC3" [color="#5A9A5A", penwidth=1.5];
 
 }

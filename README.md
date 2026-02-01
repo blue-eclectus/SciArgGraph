@@ -2,6 +2,9 @@
 
 ArgGraph is a framework for representing scientific arguments as directed acyclic graphs. It includes tools for querying and visualizing argument graphs. The framework is designed for compatibility with Bayesian networks, with documented CPT generation rules for downstream probabilistic analysis.
 
+[![Example argument graph](examples/visualization_screenshot.png)](https://blue-eclectus.github.io/SciArgGraph/examples/visualization.html)
+*Click the image to explore the interactive version.*
+
 ## Overview
 
 Scientific arguments often involve complex inferential relationships that are difficult to represent formally. ArgGraph provides a structured way to represent scientific arguments as graphs, where each claim is a node and the inferential relationships between claims are explicit edges. This makes it possible to visualize the overall structure of an argument, trace the evidential support for any claim back to its sources, identify weaknesses or gaps, and ultimately convert the argument into a Bayesian network for probabilistic reasoning.
