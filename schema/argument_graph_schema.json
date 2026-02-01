@@ -1,0 +1,508 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/argument-graph-schema.json",
+  "title": "Scientific Argument Graph",
+  "description": "Schema for representing scientific arguments as directed graphs,\ndesigned for Bayesian network conversion and NLP extraction.\n",
+  "type": "object",
+  "required": [
+    "nodes"
+  ],
+  "properties": {
+    "nodes": {
+      "type": "array",
+      "description": "All nodes in the argument graph (Propositions, Conclusions, Datums, and Links)",
+      "items": {
+        "$ref": "#/$defs/Node"
+      }
+    },
+    "metadata": {
+      "$ref": "#/$defs/GraphMetadata"
+    }
+  },
+  "$defs": {
+    "Node": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/Proposition"
+        },
+        {
+          "$ref": "#/$defs/Conclusion"
+        },
+        {
+          "$ref": "#/$defs/Datum"
+        },
+        {
+          "$ref": "#/$defs/Link"
+        }
+      ],
+      "discriminator": {
+        "propertyName": "type",
+        "mapping": {
+          "Proposition": "#/$defs/Proposition",
+          "Conclusion": "#/$defs/Conclusion",
+          "Datum": "#/$defs/Datum",
+          "Link": "#/$defs/Link"
+        }
+      }
+    },
+    "Proposition": {
+      "type": "object",
+      "description": "A truth-valued claim",
+      "required": [
+        "type",
+        "id",
+        "content"
+      ],
+      "properties": {
+        "type": {
+          "const": "Proposition"
+        },
+        "id": {
+          "type": "string",
+          "description": "Unique identifier"
+        },
+        "content": {
+          "type": "string",
+          "description": "Natural language statement"
+        },
+        "base_rate": {
+          "$ref": "#/$defs/Probability",
+          "description": "P(true | no active incoming links)",
+          "default": 0.5
+        },
+        "cpt": {
+          "$ref": "#/$defs/CPT",
+          "description": "Custom CPT (overrides default generation)"
+        },
+        "textual_basis": {
+          "$ref": "#/$defs/TextualBasis",
+          "description": "Source text grounding this element"
+        },
+        "duplicate_of": {
+          "type": "string",
+          "description": "ID of canonical node this duplicates (for tree representation of DAGs)"
+        },
+        "explicitness": {
+          "type": "string",
+          "enum": [
+            "explicit",
+            "implicit",
+            "inferred"
+          ],
+          "description": "How directly the proposition was stated in source text.\n- explicit: Directly stated\n- implicit: Inferrable from context\n- inferred: Reconstructed without clear textual signal\n"
+        },
+        "auxiliary": {
+          "type": "boolean",
+          "description": "True if this proposition serves as a supporting premise in a joint link. Auxiliary propositions are often background knowledge or unstated assumptions needed to complete an inference. Visualized with dashed edges.",
+          "default": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "Conclusion": {
+      "type": "object",
+      "description": "The final claim of an argument thread.\nLike Proposition, but represents the ultimate point being argued for.\nConclusions should not have outgoing Links (they don't support other claims).\nUseful for visualization and argument individuation.\n",
+      "required": [
+        "type",
+        "id",
+        "content"
+      ],
+      "properties": {
+        "type": {
+          "const": "Conclusion"
+        },
+        "id": {
+          "type": "string",
+          "description": "Unique identifier"
+        },
+        "content": {
+          "type": "string",
+          "description": "Natural language statement of the conclusion"
+        },
+        "base_rate": {
+          "$ref": "#/$defs/Probability",
+          "description": "P(true | no active incoming links)",
+          "default": 0.5
+        },
+        "argument_id": {
+          "type": "string",
+          "description": "Identifier linking this conclusion to its argument thread"
+        },
+        "cpt": {
+          "$ref": "#/$defs/CPT",
+          "description": "Custom CPT (overrides default generation)"
+        },
+        "textual_basis": {
+          "$ref": "#/$defs/TextualBasis",
+          "description": "Source text grounding this element"
+        },
+        "duplicate_of": {
+          "type": "string",
+          "description": "ID of canonical node this duplicates (for tree representation of DAGs)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Datum": {
+      "type": "object",
+      "description": "A reported finding with associated source reliability.\nExtends Proposition with provenance information.\n",
+      "required": [
+        "type",
+        "id",
+        "content",
+        "source"
+      ],
+      "properties": {
+        "type": {
+          "const": "Datum"
+        },
+        "id": {
+          "type": "string",
+          "description": "Unique identifier"
+        },
+        "content": {
+          "type": "string",
+          "description": "Natural language statement of what was reported"
+        },
+        "base_rate": {
+          "$ref": "#/$defs/Probability",
+          "description": "Prior probability that the reported finding is accurate;\nreflects source reliability.\n",
+          "default": 0.5
+        },
+        "source": {
+          "type": "string",
+          "description": "Provenance (citation, dataset, observation method)"
+        },
+        "cpt": {
+          "$ref": "#/$defs/CPT",
+          "description": "Custom CPT (overrides default generation)"
+        },
+        "textual_basis": {
+          "$ref": "#/$defs/TextualBasis",
+          "description": "Source text grounding this element"
+        },
+        "duplicate_of": {
+          "type": "string",
+          "description": "ID of canonical node this duplicates (for tree representation of DAGs)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Link": {
+      "type": "object",
+      "description": "Reified support or undermine relationship.\nFirst-class node enabling joint premises and undercutting.\n",
+      "required": [
+        "type",
+        "id",
+        "source_ids",
+        "target_id",
+        "polarity"
+      ],
+      "properties": {
+        "type": {
+          "const": "Link"
+        },
+        "id": {
+          "type": "string",
+          "description": "Unique identifier"
+        },
+        "source_ids": {
+          "type": "array",
+          "description": "One or more source nodes (joint if multiple)",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "target_id": {
+          "type": "string",
+          "description": "Target node (Proposition, Datum, or Link for undercutting)"
+        },
+        "polarity": {
+          "type": "string",
+          "enum": [
+            "supports",
+            "undermines"
+          ],
+          "description": "Whether this link supports or undermines the target"
+        },
+        "strength": {
+          "$ref": "#/$defs/Probability",
+          "description": "How much the evidence shifts belief in the target (0=no effect, 1=decisive)",
+          "default": 0.8
+        },
+        "cpt": {
+          "$ref": "#/$defs/CPT",
+          "description": "Custom CPT (overrides default generation)"
+        },
+        "textual_basis": {
+          "$ref": "#/$defs/TextualBasis",
+          "description": "Source text grounding this relation"
+        },
+        "explicitness": {
+          "type": "string",
+          "enum": [
+            "explicit",
+            "implicit",
+            "inferred"
+          ],
+          "description": "How directly the relation was stated in source text.\n- explicit: Relation directly stated\n- implicit: Relation inferrable from discourse structure\n- inferred: Relation reconstructed without clear textual signal\n"
+        }
+      },
+      "additionalProperties": false
+    },
+    "CPT": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/TableCPT"
+        },
+        {
+          "$ref": "#/$defs/NoisyOrCPT"
+        },
+        {
+          "$ref": "#/$defs/NoisyAndCPT"
+        },
+        {
+          "$ref": "#/$defs/LogisticCPT"
+        }
+      ],
+      "discriminator": {
+        "propertyName": "type",
+        "mapping": {
+          "table": "#/$defs/TableCPT",
+          "noisy_or": "#/$defs/NoisyOrCPT",
+          "noisy_and": "#/$defs/NoisyAndCPT",
+          "logistic": "#/$defs/LogisticCPT"
+        }
+      }
+    },
+    "TableCPT": {
+      "type": "object",
+      "description": "Explicit probability table keyed by parent assignments",
+      "required": [
+        "type",
+        "parents",
+        "rows"
+      ],
+      "properties": {
+        "type": {
+          "const": "table"
+        },
+        "parents": {
+          "type": "array",
+          "description": "Ordered list of parent node IDs",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rows": {
+          "type": "object",
+          "description": "Mapping from comma-separated parent states to P(node=true).\nKeys use 'true'/'false' for Propositions/Datums,\n'active'/'inactive' for Links.\n",
+          "additionalProperties": {
+            "$ref": "#/$defs/Probability"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "NoisyOrCPT": {
+      "type": "object",
+      "description": "Noisy-OR parametric CPT.\nP(false) = (1 - leak) \u00d7 \u220f\u1d62 (1 - w\u1d62)^\ud835\udfd9[parent\u1d62=active]\n",
+      "required": [
+        "type",
+        "leak",
+        "weights"
+      ],
+      "properties": {
+        "type": {
+          "const": "noisy_or"
+        },
+        "leak": {
+          "$ref": "#/$defs/Probability",
+          "description": "P(true | all parents inactive)"
+        },
+        "weights": {
+          "type": "object",
+          "description": "Per-parent activation strengths",
+          "additionalProperties": {
+            "$ref": "#/$defs/Probability"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "NoisyAndCPT": {
+      "type": "object",
+      "description": "Noisy-AND parametric CPT.\nP(true) = base \u00d7 \u220f\u1d62 (1 - w\u1d62 \u00d7 \ud835\udfd9[parent\u1d62=false])\n",
+      "required": [
+        "type",
+        "base",
+        "weights"
+      ],
+      "properties": {
+        "type": {
+          "const": "noisy_and"
+        },
+        "base": {
+          "$ref": "#/$defs/Probability",
+          "description": "P(true | all parents true)"
+        },
+        "weights": {
+          "type": "object",
+          "description": "Per-parent necessity weights",
+          "additionalProperties": {
+            "$ref": "#/$defs/Probability"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "LogisticCPT": {
+      "type": "object",
+      "description": "Logistic parametric CPT.\nP(true) = \u03c3(bias + \u03a3\u1d62 w\u1d62 \u00d7 \ud835\udfd9[parent\u1d62=active])\nwhere \u03c3 is the sigmoid function.\n",
+      "required": [
+        "type",
+        "bias",
+        "weights"
+      ],
+      "properties": {
+        "type": {
+          "const": "logistic"
+        },
+        "bias": {
+          "type": "number",
+          "description": "Intercept (log-odds)"
+        },
+        "weights": {
+          "type": "object",
+          "description": "Per-parent log-odds contributions",
+          "additionalProperties": {
+            "type": "number"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "TextualBasis": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/TextualBasisSpan"
+        },
+        {
+          "type": "array",
+          "description": "Multiple spans for claims synthesized from non-contiguous text",
+          "items": {
+            "$ref": "#/$defs/TextualBasisSpan"
+          },
+          "minItems": 1
+        }
+      ],
+      "description": "Source text grounding. Single span for most claims; array of spans for synthesized claims."
+    },
+    "TextualBasisSpan": {
+      "type": "object",
+      "description": "A single verbatim quote from source text",
+      "required": [
+        "text"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "Verbatim quote from source text. Must be exact (minor whitespace/punctuation normalization acceptable). Required for validation and faithfulness evaluation."
+        },
+        "location": {
+          "type": "string",
+          "description": "Where in the source document\n(e.g., \"Results, paragraph 3\", \"p. 12\", \"Abstract\")\n"
+        }
+      },
+      "additionalProperties": false
+    },
+    "GraphMetadata": {
+      "type": "object",
+      "description": "Metadata about the overall argument graph",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Title or identifier for this argument graph"
+        },
+        "description": {
+          "type": "string",
+          "description": "Brief description of the argument"
+        },
+        "source_documents": {
+          "type": "array",
+          "description": "Documents from which this graph was extracted",
+          "items": {
+            "$ref": "#/$defs/SourceDocument"
+          }
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the graph was created"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the graph was last modified"
+        },
+        "version": {
+          "type": "string",
+          "description": "Version identifier for the graph"
+        },
+        "authors": {
+          "type": "array",
+          "description": "Authors or extractors of this graph",
+          "items": {
+            "type": "string"
+          }
+        },
+        "extraction_method": {
+          "type": "string",
+          "description": "How the graph was created\n(e.g., \"manual\", \"llm-assisted\", \"automated-nlp\")\n"
+        }
+      },
+      "additionalProperties": true
+    },
+    "SourceDocument": {
+      "type": "object",
+      "description": "A source document from which arguments were extracted",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identifier for the document"
+        },
+        "title": {
+          "type": "string",
+          "description": "Document title"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "year": {
+          "type": "integer",
+          "description": "Publication year"
+        },
+        "doi": {
+          "type": "string",
+          "description": "Digital Object Identifier"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL where document can be accessed"
+        }
+      },
+      "additionalProperties": true
+    },
+    "Probability": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "A probability value in [0, 1]"
+    }
+  }
+}

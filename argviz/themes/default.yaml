@@ -1,0 +1,15 @@
+name: default
+
+colors:
+  proposition: "#6FB1FC"
+  datum: "#F5A45D"
+  link_supports: "#7FC97F"
+  link_undermines: "#E74C3C"
+  proposition_border: "#4A90D9"
+  datum_border: "#D4843D"
+  link_supports_border: "#5A9A5A"
+  link_undermines_border: "#C0392B"
+  edge_supports: "#5A9A5A"
+  edge_undermines: "#C0392B"
+  edge_default: "#333333"
+  background: "#FFFFFF"

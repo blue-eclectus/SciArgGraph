@@ -1,0 +1,203 @@
+edges: []
+metadata:
+  extracted_at: '2026-01-20T13:38:08.583989'
+  extraction_method: v6-msa
+  iterations: 2
+  status: complete
+nodes:
+- base_rate: 0.5
+  content: SARS-CoV-2 is transmitted primarily by the airborne route.
+  id: C1
+  type: Conclusion
+- base_rate: 0.5
+  content: The transmission patterns observed in superspreading events, characterized
+    by long-range transmission and high overdispersion, are inconsistent with droplet
+    or fomite transmission and instead indicate aerosol transmission as the dominant
+    mode.
+  id: SC1
+  type: Proposition
+- base_rate: 0.7
+  content: Superspreading events account for substantial SARS-CoV-2 transmission
+  id: S1
+  source: reference 6
+  textual_basis:
+    text: superspreading events account for substantial SARS-CoV-2 transmission
+  type: Datum
+- base_rate: 0.7
+  content: Detailed analyses of choir concerts, cruise ships, slaughterhouses, care
+    homes, and correctional facilities showed patterns of long-range transmission
+    and overdispersion of R0
+  id: S2
+  source: reference 6
+  textual_basis:
+    text: Detailed analyses of human behaviours and interactions, room sizes, ventilation,
+      and other variables in choir concerts, cruise ships, slaughterhouses, care homes,
+      and correctional facilities, among other settings, have shown patterns—eg, long-range
+      transmission and overdispersion of the basic reproduction number (R0)
+  type: Datum
+- base_rate: 0.7
+  content: The observed patterns of long-range transmission and overdispersion are
+    consistent with airborne spread of SARS-CoV-2 and cannot be adequately explained
+    by droplets or fomites
+  id: S3
+  source: reference 6
+  textual_basis:
+    text: shown patterns—eg, long-range transmission and overdispersion of the basic
+      reproduction number (R0), discussed below—consistent with airborne spread of
+      SARS-CoV-2 that cannot be adequately explained by droplets or fomites
+  type: Datum
+- base_rate: 0.5
+  content: SARS-CoV-2 can spread between individuals who are physically separated
+    and have no direct contact, indicating a transmission mechanism that operates
+    over distance.
+  id: SC2
+  type: Proposition
+- base_rate: 0.7
+  content: Long-range transmission of SARS-CoV-2 between people in adjacent rooms
+    but never in each other's presence has been documented in quarantine hotels
+  id: S4
+  source: quarantine hotel documentation
+  textual_basis:
+    text: long-range transmission of SARS-CoV-2 between people in adjacent rooms but
+      never in each other's presence has been documented in quarantine hotels
+  type: Datum
+- base_rate: 0.5
+  content: Transmission of SARS-CoV-2 occurs through aerosol particles generated during
+    normal speech and breathing, even in the absence of coughing or sneezing.
+  id: SC3
+  type: Proposition
+- base_rate: 0.7
+  content: Asymptomatic or presymptomatic transmission of SARS-CoV-2 from people who
+    are not coughing or sneezing accounts for at least a third, and perhaps up to
+    59%, of all transmission globally
+  id: S5
+  source: reference 8
+  textual_basis:
+    text: asymptomatic or presymptomatic transmission of SARS-CoV-2 from people who
+      are not coughing or sneezing is likely to account for at least a third, and
+      perhaps up to 59%, of all transmission globally
+  type: Datum
+- base_rate: 0.7
+  content: Speaking produces thousands of aerosol particles and few large droplets
+  id: S6
+  source: reference 9
+  textual_basis:
+    text: Direct measurements show that speaking produces thousands of aerosol particles
+      and few large droplets
+  type: Datum
+- base_rate: 0.5
+  content: Transmission without coughing or sneezing indicates that droplet-based
+    transmission alone cannot explain the observed transmission pattern.
+  explicitness: inferred
+  id: P_7b77a94b
+  type: Proposition
+- base_rate: 0.5
+  content: Aerosol particles generated during speech can carry and transmit SARS-CoV-2
+    virus to susceptible individuals through inhalation.
+  explicitness: inferred
+  id: P_176d8424
+  type: Proposition
+- base_rate: 0.5
+  content: Coughing and sneezing are the primary mechanisms for generating large respiratory
+    droplets.
+  explicitness: inferred
+  auxiliary: true
+  id: P_7b77a94b_SC3_aux1
+  type: Proposition
+- base_rate: 0.5
+  content: Aerosol particles are small enough to remain suspended in air and be inhaled
+    into the respiratory tract.
+  explicitness: inferred
+  auxiliary: true
+  id: P_176d8424_SC3_aux1
+  type: Proposition
+- explicitness: implicit
+  id: link_093181
+  polarity: supports
+  strength: 0.95
+  source_ids:
+  - S2
+  target_id: S3
+  type: Link
+- explicitness: implicit
+  id: link_8e5954
+  polarity: supports
+  strength: 0.21000000000000002
+  source_ids:
+  - S1
+  target_id: SC1
+  type: Link
+- explicitness: implicit
+  id: link_dee4b8
+  polarity: supports
+  strength: 0.95
+  source_ids:
+  - S3
+  target_id: SC1
+  type: Link
+- explicitness: implicit
+  id: link_accc24
+  polarity: supports
+  strength: 0.8
+  source_ids:
+  - SC1
+  target_id: C1
+  type: Link
+- explicitness: implicit
+  id: link_e07209
+  polarity: supports
+  strength: 0.8
+  source_ids:
+  - SC2
+  target_id: C1
+  type: Link
+- explicitness: implicit
+  id: link_2b15aa
+  polarity: supports
+  strength: 0.8
+  source_ids:
+  - SC3
+  target_id: C1
+  type: Link
+- explicitness: implicit
+  id: link_2609ba
+  polarity: supports
+  strength: 0.95
+  source_ids:
+  - S4
+  target_id: SC2
+  type: Link
+- explicitness: implicit
+  id: link_373b80
+  polarity: supports
+  strength: 0.8
+  source_ids:
+  - S5
+  target_id: P_7b77a94b
+  type: Link
+- explicitness: implicit
+  id: link_625127
+  polarity: supports
+  strength: 0.8
+  source_ids:
+  - S6
+  target_id: P_176d8424
+  type: Link
+- explicitness: implicit
+  id: link_456fe3
+  polarity: supports
+  strength: 0.6
+  source_ids:
+  - P_7b77a94b
+  - P_7b77a94b_SC3_aux1
+  target_id: SC3
+  type: Link
+- explicitness: implicit
+  id: link_97d56f
+  polarity: supports
+  strength: 0.95
+  source_ids:
+  - P_176d8424
+  - P_176d8424_SC3_aux1
+  target_id: SC3
+  type: Link

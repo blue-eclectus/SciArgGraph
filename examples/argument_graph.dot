@@ -1,0 +1,68 @@
+digraph argument_graph {
+    // Graph settings
+    rankdir=BT;
+    splines=ortho;
+    nodesep=0.6;
+    ranksep=0.8;
+    bgcolor=white;
+
+    // Node defaults
+    node [fontname="Helvetica", fontsize=10];
+    edge [fontname="Helvetica", fontsize=9];
+
+    // Content nodes
+    "C1" [label="SARS-CoV-2 is\ntransmitted primarily by\nthe airborne route.", shape=box, style=filled, fillcolor="#FFD700", color="#DAA520"];
+    "SC1" [label="The transmission\npatterns observed in\nsuperspreading events,\ncharacterized by\nlong-range…", shape=box, style=filled, fillcolor="#6FB1FC", color="#4A90D9"];
+    "S1" [label="Superspreading events\naccount for substantial\nSARS-CoV-2 transmission", shape=ellipse, style=filled, fillcolor="#F5A45D", color="#D4843D"];
+    "S2" [label="Detailed analyses of\nchoir concerts, cruise\nships, slaughterhouses,\ncare homes, and\ncorrectional…", shape=ellipse, style=filled, fillcolor="#F5A45D", color="#D4843D"];
+    "S3" [label="The observed patterns of\nlong-range transmission\nand overdispersion are\nconsistent with airborne…", shape=ellipse, style=filled, fillcolor="#F5A45D", color="#D4843D"];
+    "SC2" [label="SARS-CoV-2 can spread\nbetween individuals who\nare physically separated\nand have no direct\ncontact,…", shape=box, style=filled, fillcolor="#6FB1FC", color="#4A90D9"];
+    "S4" [label="Long-range transmission\nof SARS-CoV-2 between\npeople in adjacent rooms\nbut never in each\nother's…", shape=ellipse, style=filled, fillcolor="#F5A45D", color="#D4843D"];
+    "SC3" [label="Transmission of\nSARS-CoV-2 occurs through\naerosol particles\ngenerated during normal\nspeech and…", shape=box, style=filled, fillcolor="#6FB1FC", color="#4A90D9"];
+    "S5" [label="Asymptomatic or\npresymptomatic\ntransmission of\nSARS-CoV-2 from people\nwho are not coughing or…", shape=ellipse, style=filled, fillcolor="#F5A45D", color="#D4843D"];
+    "S6" [label="Speaking produces\nthousands of aerosol\nparticles and few large\ndroplets", shape=ellipse, style=filled, fillcolor="#F5A45D", color="#D4843D"];
+    "P_7b77a94b" [label="Transmission without\ncoughing or sneezing\nindicates that\ndroplet-based\ntransmission alone\ncannot…", shape=box, style=filled, fillcolor="#C2E0FF", color="#A8CCF0"];
+    "P_176d8424" [label="Aerosol particles\ngenerated during speech\ncan carry and transmit\nSARS-CoV-2 virus to\nsusceptible…", shape=box, style=filled, fillcolor="#C2E0FF", color="#A8CCF0"];
+    "P_7b77a94b_SC3_aux1" [label="Coughing and sneezing\nare the primary\nmechanisms for generating\nlarge respiratory\ndroplets.", shape=box, style=filled, fillcolor="#C2E0FF", color="#A8CCF0"];
+    "P_176d8424_SC3_aux1" [label="Aerosol particles are\nsmall enough to remain\nsuspended in air and be\ninhaled into the\nrespiratory…", shape=box, style=filled, fillcolor="#C2E0FF", color="#A8CCF0"];
+
+    // Link nodes
+    "link_093181" [label="", shape=diamond, style=filled, fillcolor="#7FC97F", color="#5A9A5A", width=0.3, height=0.3, fixedsize=true];
+    "link_8e5954" [label="", shape=diamond, style=filled, fillcolor="#7FC97F", color="#5A9A5A", width=0.3, height=0.3, fixedsize=true];
+    "link_dee4b8" [label="", shape=diamond, style=filled, fillcolor="#7FC97F", color="#5A9A5A", width=0.3, height=0.3, fixedsize=true];
+    "link_accc24" [label="", shape=diamond, style=filled, fillcolor="#7FC97F", color="#5A9A5A", width=0.3, height=0.3, fixedsize=true];
+    "link_e07209" [label="", shape=diamond, style=filled, fillcolor="#7FC97F", color="#5A9A5A", width=0.3, height=0.3, fixedsize=true];
+    "link_2b15aa" [label="", shape=diamond, style=filled, fillcolor="#7FC97F", color="#5A9A5A", width=0.3, height=0.3, fixedsize=true];
+    "link_2609ba" [label="", shape=diamond, style=filled, fillcolor="#7FC97F", color="#5A9A5A", width=0.3, height=0.3, fixedsize=true];
+    "link_373b80" [label="", shape=diamond, style=filled, fillcolor="#7FC97F", color="#5A9A5A", width=0.3, height=0.3, fixedsize=true];
+    "link_625127" [label="", shape=diamond, style=filled, fillcolor="#7FC97F", color="#5A9A5A", width=0.3, height=0.3, fixedsize=true];
+    "link_456fe3" [label="", shape=diamond, style=filled, fillcolor="#7FC97F", color="#5A9A5A", width=0.3, height=0.3, fixedsize=true];
+    "link_97d56f" [label="", shape=diamond, style=filled, fillcolor="#7FC97F", color="#5A9A5A", width=0.3, height=0.3, fixedsize=true];
+
+    // Link edges
+    "S2" -> "link_093181" [color="#5A9A5A", penwidth=1.5];
+    "link_093181" -> "S3" [color="#5A9A5A", penwidth=1.5];
+    "S1" -> "link_8e5954" [color="#5A9A5A", penwidth=1.5];
+    "link_8e5954" -> "SC1" [color="#5A9A5A", penwidth=1.5];
+    "S3" -> "link_dee4b8" [color="#5A9A5A", penwidth=1.5];
+    "link_dee4b8" -> "SC1" [color="#5A9A5A", penwidth=1.5];
+    "SC1" -> "link_accc24" [color="#5A9A5A", penwidth=1.5];
+    "link_accc24" -> "C1" [color="#5A9A5A", penwidth=1.5];
+    "SC2" -> "link_e07209" [color="#5A9A5A", penwidth=1.5];
+    "link_e07209" -> "C1" [color="#5A9A5A", penwidth=1.5];
+    "SC3" -> "link_2b15aa" [color="#5A9A5A", penwidth=1.5];
+    "link_2b15aa" -> "C1" [color="#5A9A5A", penwidth=1.5];
+    "S4" -> "link_2609ba" [color="#5A9A5A", penwidth=1.5];
+    "link_2609ba" -> "SC2" [color="#5A9A5A", penwidth=1.5];
+    "S5" -> "link_373b80" [color="#5A9A5A", penwidth=1.5];
+    "link_373b80" -> "P_7b77a94b" [color="#5A9A5A", penwidth=1.5];
+    "S6" -> "link_625127" [color="#5A9A5A", penwidth=1.5];
+    "link_625127" -> "P_176d8424" [color="#5A9A5A", penwidth=1.5];
+    "P_7b77a94b" -> "link_456fe3" [color="#5A9A5A", penwidth=1.5];
+    "P_7b77a94b_SC3_aux1" -> "link_456fe3" [color="#5A9A5A", penwidth=1.5];
+    "link_456fe3" -> "SC3" [color="#5A9A5A", penwidth=1.5];
+    "P_176d8424" -> "link_97d56f" [color="#5A9A5A", penwidth=1.5];
+    "P_176d8424_SC3_aux1" -> "link_97d56f" [color="#5A9A5A", penwidth=1.5];
+    "link_97d56f" -> "SC3" [color="#5A9A5A", penwidth=1.5];
+
+}

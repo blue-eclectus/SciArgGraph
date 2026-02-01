@@ -1,0 +1,11 @@
+Source: Greenhalgh, Trisha, Jose L. Jimenez, Kimberly A. Prather, Zeynep Tufekci, David Fisman, and Robert Schooley. "Ten scientific reasons in support of airborne transmission of SARS-CoV-2." The Lancet 397, no. 10285 (2021): 1603-1605.
+
+Excerpt (reasons 1-3 of 10), from page 1603:
+
+---
+
+First, superspreading events account for substantial SARS-CoV-2 transmission; indeed, such events may be the pandemic's primary drivers.6 Detailed analyses of human behaviours and interactions, room sizes, ventilation, and other variables in choir concerts, cruise ships, slaughterhouses, care homes, and correctional facilities, among other settings, have shown patterns—eg, long-range transmission and overdispersion of the basic reproduction number (R0), discussed below—consistent with airborne spread of SARS-CoV-2 that cannot be adequately explained by droplets or fomites.6 The high incidence of such events strongly suggests the dominance of aerosol transmission.
+
+Second, long-range transmission of SARS-CoV-2 between people in adjacent rooms but never in each other's presence has been documented in quarantine hotels.7 Historically, it was possible to prove long-range transmission only in the complete absence of community transmission.4
+
+Third, asymptomatic or presymptomatic transmission of SARS-CoV-2 from people who are not coughing or sneezing is likely to account for at least a third, and perhaps up to 59%, of all transmission globally and is a key way SARS-CoV-2 has spread around the world,8 supportive of a predominantly airborne mode of transmission. Direct measurements show that speaking produces thousands of aerosol particles and few large droplets,9 which supports the airborne route.

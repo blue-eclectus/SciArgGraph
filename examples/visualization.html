@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Argument Graph</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dagre/0.8.5/dagre.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cytoscape-dagre@2.5.0/cytoscape-dagre.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        #cy {
+            width: 100%;
+            height: 100vh;
+        }
+        #tooltip {
+            position: absolute;
+            display: none;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 300px;
+            font-size: 12px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div id="cy"></div>
+    <div id="tooltip"></div>
+    <script>
+        const graphData = {
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "id": "C1",
+          "label": "SARS-CoV-2 is transmitted primarily by the airborne route.",
+          "fullText": "SARS-CoV-2 is transmitted primarily by the airborne route.",
+          "type": "Conclusion",
+          "nodeColor": "#FFD700",
+          "borderColor": "#DAA520"
+        }
+      },
+      {
+        "data": {
+          "id": "SC1",
+          "label": "The transmission patterns observed in superspreading events, characterized by long-range\u2026",
+          "fullText": "The transmission patterns observed in superspreading events, characterized by long-range transmission and high overdispersion, are inconsistent with droplet or fomite transmission and instead indicate aerosol transmission as the dominant mode.",
+          "type": "Proposition",
+          "nodeColor": "#6FB1FC",
+          "borderColor": "#4A90D9"
+        }
+      },
+      {
+        "data": {
+          "id": "S1",
+          "label": "Superspreading events account for substantial SARS-CoV-2 transmission",
+          "fullText": "Superspreading events account for substantial SARS-CoV-2 transmission",
+          "type": "Datum",
+          "nodeColor": "#F5A45D",
+          "borderColor": "#D4843D"
+        }
+      },
+      {
+        "data": {
+          "id": "S2",
+          "label": "Detailed analyses of choir concerts, cruise ships, slaughterhouses, care homes, and correctional\u2026",
+          "fullText": "Detailed analyses of choir concerts, cruise ships, slaughterhouses, care homes, and correctional facilities showed patterns of long-range transmission and overdispersion of R0",
+          "type": "Datum",
+          "nodeColor": "#F5A45D",
+          "borderColor": "#D4843D"
+        }
+      },
+      {
+        "data": {
+          "id": "S3",
+          "label": "The observed patterns of long-range transmission and overdispersion are consistent with airborne\u2026",
+          "fullText": "The observed patterns of long-range transmission and overdispersion are consistent with airborne spread of SARS-CoV-2 and cannot be adequately explained by droplets or fomites",
+          "type": "Datum",
+          "nodeColor": "#F5A45D",
+          "borderColor": "#D4843D"
+        }
+      },
+      {
+        "data": {
+          "id": "SC2",
+          "label": "SARS-CoV-2 can spread between individuals who are physically separated and have no direct contact,\u2026",
+          "fullText": "SARS-CoV-2 can spread between individuals who are physically separated and have no direct contact, indicating a transmission mechanism that operates over distance.",
+          "type": "Proposition",
+          "nodeColor": "#6FB1FC",
+          "borderColor": "#4A90D9"
+        }
+      },
+      {
+        "data": {
+          "id": "S4",
+          "label": "Long-range transmission of SARS-CoV-2 between people in adjacent rooms but never in each other's\u2026",
+          "fullText": "Long-range transmission of SARS-CoV-2 between people in adjacent rooms but never in each other's presence has been documented in quarantine hotels",
+          "type": "Datum",
+          "nodeColor": "#F5A45D",
+          "borderColor": "#D4843D"
+        }
+      },
+      {
+        "data": {
+          "id": "SC3",
+          "label": "Transmission of SARS-CoV-2 occurs through aerosol particles generated during normal speech and\u2026",
+          "fullText": "Transmission of SARS-CoV-2 occurs through aerosol particles generated during normal speech and breathing, even in the absence of coughing or sneezing.",
+          "type": "Proposition",
+          "nodeColor": "#6FB1FC",
+          "borderColor": "#4A90D9"
+        }
+      },
+      {
+        "data": {
+          "id": "S5",
+          "label": "Asymptomatic or presymptomatic transmission of SARS-CoV-2 from people who are not coughing or\u2026",
+          "fullText": "Asymptomatic or presymptomatic transmission of SARS-CoV-2 from people who are not coughing or sneezing accounts for at least a third, and perhaps up to 59%, of all transmission globally",
+          "type": "Datum",
+          "nodeColor": "#F5A45D",
+          "borderColor": "#D4843D"
+        }
+      },
+      {
+        "data": {
+          "id": "S6",
+          "label": "Speaking produces thousands of aerosol particles and few large droplets",
+          "fullText": "Speaking produces thousands of aerosol particles and few large droplets",
+          "type": "Datum",
+          "nodeColor": "#F5A45D",
+          "borderColor": "#D4843D"
+        }
+      },
+      {
+        "data": {
+          "id": "P_7b77a94b",
+          "label": "Transmission without coughing or sneezing indicates that droplet-based transmission alone cannot\u2026",
+          "fullText": "Transmission without coughing or sneezing indicates that droplet-based transmission alone cannot explain the observed transmission pattern.",
+          "type": "Proposition",
+          "nodeColor": "#C2E0FF",
+          "borderColor": "#A8CCF0"
+        }
+      },
+      {
+        "data": {
+          "id": "P_176d8424",
+          "label": "Aerosol particles generated during speech can carry and transmit SARS-CoV-2 virus to susceptible\u2026",
+          "fullText": "Aerosol particles generated during speech can carry and transmit SARS-CoV-2 virus to susceptible individuals through inhalation.",
+          "type": "Proposition",
+          "nodeColor": "#C2E0FF",
+          "borderColor": "#A8CCF0"
+        }
+      },
+      {
+        "data": {
+          "id": "P_7b77a94b_SC3_aux1",
+          "label": "Coughing and sneezing are the primary mechanisms for generating large respiratory droplets.",
+          "fullText": "Coughing and sneezing are the primary mechanisms for generating large respiratory droplets.",
+          "type": "Proposition",
+          "nodeColor": "#C2E0FF",
+          "borderColor": "#A8CCF0"
+        }
+      },
+      {
+        "data": {
+          "id": "P_176d8424_SC3_aux1",
+          "label": "Aerosol particles are small enough to remain suspended in air and be inhaled into the respiratory\u2026",
+          "fullText": "Aerosol particles are small enough to remain suspended in air and be inhaled into the respiratory tract.",
+          "type": "Proposition",
+          "nodeColor": "#C2E0FF",
+          "borderColor": "#A8CCF0"
+        }
+      },
+      {
+        "data": {
+          "id": "link_093181",
+          "label": "",
+          "fullText": "Link (supports)",
+          "type": "Link",
+          "polarity": "supports",
+          "nodeColor": "#7FC97F",
+          "borderColor": "#5A9A5A"
+        }
+      },
+      {
+        "data": {
+          "id": "link_8e5954",
+          "label": "",
+          "fullText": "Link (supports)",
+          "type": "Link",
+          "polarity": "supports",
+          "nodeColor": "#7FC97F",
+          "borderColor": "#5A9A5A"
+        }
+      },
+      {
+        "data": {
+          "id": "link_dee4b8",
+          "label": "",
+          "fullText": "Link (supports)",
+          "type": "Link",
+          "polarity": "supports",
+          "nodeColor": "#7FC97F",
+          "borderColor": "#5A9A5A"
+        }
+      },
+      {
+        "data": {
+          "id": "link_accc24",
+          "label": "",
+          "fullText": "Link (supports)",
+          "type": "Link",
+          "polarity": "supports",
+          "nodeColor": "#7FC97F",
+          "borderColor": "#5A9A5A"
+        }
+      },
+      {
+        "data": {
+          "id": "link_e07209",
+          "label": "",
+          "fullText": "Link (supports)",
+          "type": "Link",
+          "polarity": "supports",
+          "nodeColor": "#7FC97F",
+          "borderColor": "#5A9A5A"
+        }
+      },
+      {
+        "data": {
+          "id": "link_2b15aa",
+          "label": "",
+          "fullText": "Link (supports)",
+          "type": "Link",
+          "polarity": "supports",
+          "nodeColor": "#7FC97F",
+          "borderColor": "#5A9A5A"
+        }
+      },
+      {
+        "data": {
+          "id": "link_2609ba",
+          "label": "",
+          "fullText": "Link (supports)",
+          "type": "Link",
+          "polarity": "supports",
+          "nodeColor": "#7FC97F",
+          "borderColor": "#5A9A5A"
+        }
+      },
+      {
+        "data": {
+          "id": "link_373b80",
+          "label": "",
+          "fullText": "Link (supports)",
+          "type": "Link",
+          "polarity": "supports",
+          "nodeColor": "#7FC97F",
+          "borderColor": "#5A9A5A"
+        }
+      },
+      {
+        "data": {
+          "id": "link_625127",
+          "label": "",
+          "fullText": "Link (supports)",
+          "type": "Link",
+          "polarity": "supports",
+          "nodeColor": "#7FC97F",
+          "borderColor": "#5A9A5A"
+        }
+      },
+      {
+        "data": {
+          "id": "link_456fe3",
+          "label": "",
+          "fullText": "Link (supports)",
+          "type": "Link",
+          "polarity": "supports",
+          "nodeColor": "#7FC97F",
+          "borderColor": "#5A9A5A"
+        }
+      },
+      {
+        "data": {
+          "id": "link_97d56f",
+          "label": "",
+          "fullText": "Link (supports)",
+          "type": "Link",
+          "polarity": "supports",
+          "nodeColor": "#7FC97F",
+          "borderColor": "#5A9A5A"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "S2",
+          "target": "link_093181",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      },
+      {
+        "data": {
+          "source": "link_093181",
+          "target": "S3",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      },
+      {
+        "data": {
+          "source": "S1",
+          "target": "link_8e5954",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      },
+      {
+        "data": {
+          "source": "link_8e5954",
+          "target": "SC1",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      },
+      {
+        "data": {
+          "source": "S3",
+          "target": "link_dee4b8",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      },
+      {
+        "data": {
+          "source": "link_dee4b8",
+          "target": "SC1",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      },
+      {
+        "data": {
+          "source": "SC1",
+          "target": "link_accc24",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      },
+      {
+        "data": {
+          "source": "link_accc24",
+          "target": "C1",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      },
+      {
+        "data": {
+          "source": "SC2",
+          "target": "link_e07209",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      },
+      {
+        "data": {
+          "source": "link_e07209",
+          "target": "C1",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      },
+      {
+        "data": {
+          "source": "SC3",
+          "target": "link_2b15aa",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      },
+      {
+        "data": {
+          "source": "link_2b15aa",
+          "target": "C1",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      },
+      {
+        "data": {
+          "source": "S4",
+          "target": "link_2609ba",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      },
+      {
+        "data": {
+          "source": "link_2609ba",
+          "target": "SC2",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      },
+      {
+        "data": {
+          "source": "S5",
+          "target": "link_373b80",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      },
+      {
+        "data": {
+          "source": "link_373b80",
+          "target": "P_7b77a94b",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      },
+      {
+        "data": {
+          "source": "S6",
+          "target": "link_625127",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      },
+      {
+        "data": {
+          "source": "link_625127",
+          "target": "P_176d8424",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      },
+      {
+        "data": {
+          "source": "P_7b77a94b",
+          "target": "link_456fe3",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      },
+      {
+        "data": {
+          "source": "P_7b77a94b_SC3_aux1",
+          "target": "link_456fe3",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "dashed"
+        }
+      },
+      {
+        "data": {
+          "source": "link_456fe3",
+          "target": "SC3",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      },
+      {
+        "data": {
+          "source": "P_176d8424",
+          "target": "link_97d56f",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      },
+      {
+        "data": {
+          "source": "P_176d8424_SC3_aux1",
+          "target": "link_97d56f",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "dashed"
+        }
+      },
+      {
+        "data": {
+          "source": "link_97d56f",
+          "target": "SC3",
+          "edgeType": "link",
+          "edgeColor": "#5A9A5A",
+          "lineStyle": "solid"
+        }
+      }
+    ]
+  },
+  "style": [
+    {
+      "selector": "node[type='Proposition']",
+      "style": {
+        "shape": "round-rectangle",
+        "background-color": "data(nodeColor)",
+        "border-color": "data(borderColor)",
+        "border-width": 1,
+        "label": "data(label)",
+        "text-wrap": "wrap",
+        "text-max-width": "150px",
+        "font-size": "10px",
+        "text-valign": "center",
+        "text-halign": "center",
+        "width": "label",
+        "height": "label",
+        "padding": "10px"
+      }
+    },
+    {
+      "selector": "node[type='Conclusion']",
+      "style": {
+        "shape": "round-rectangle",
+        "background-color": "data(nodeColor)",
+        "border-color": "data(borderColor)",
+        "border-width": 2,
+        "label": "data(label)",
+        "text-wrap": "wrap",
+        "text-max-width": "150px",
+        "font-size": "10px",
+        "text-valign": "center",
+        "text-halign": "center",
+        "width": "label",
+        "height": "label",
+        "padding": "10px"
+      }
+    },
+    {
+      "selector": "node[type='Datum']",
+      "style": {
+        "shape": "ellipse",
+        "background-color": "data(nodeColor)",
+        "border-color": "data(borderColor)",
+        "border-width": 1,
+        "label": "data(label)",
+        "text-wrap": "wrap",
+        "text-max-width": "150px",
+        "font-size": "10px",
+        "text-valign": "center",
+        "text-halign": "center",
+        "width": "label",
+        "height": "label",
+        "padding": "10px"
+      }
+    },
+    {
+      "selector": "node[type='Link']",
+      "style": {
+        "shape": "diamond",
+        "background-color": "data(nodeColor)",
+        "border-color": "data(borderColor)",
+        "border-width": 1,
+        "width": 20,
+        "height": 20
+      }
+    },
+    {
+      "selector": "edge",
+      "style": {
+        "width": 1.5,
+        "line-color": "data(edgeColor)",
+        "target-arrow-color": "data(edgeColor)",
+        "target-arrow-shape": "triangle",
+        "curve-style": "bezier"
+      }
+    },
+    {
+      "selector": "edge[lineStyle='dashed']",
+      "style": {
+        "line-style": "dashed"
+      }
+    }
+  ],
+  "layout": {
+    "name": "dagre",
+    "rankDir": "BT",
+    "nodeSep": 50,
+    "rankSep": 80
+  }
+};
+
+        const cy = cytoscape({
+            container: document.getElementById('cy'),
+            elements: graphData.elements,
+            style: graphData.style,
+            layout: graphData.layout,
+            userZoomingEnabled: true,
+            userPanningEnabled: true,
+            boxSelectionEnabled: false,
+        });
+
+        // Tooltip on hover/click
+        const tooltip = document.getElementById('tooltip');
+
+        cy.on('tap', 'node', function(evt) {
+            const node = evt.target;
+            const fullText = node.data('fullText');
+            if (fullText) {
+                tooltip.innerHTML = fullText;
+                tooltip.style.display = 'block';
+                tooltip.style.left = evt.originalEvent.pageX + 10 + 'px';
+                tooltip.style.top = evt.originalEvent.pageY + 10 + 'px';
+            }
+        });
+
+        cy.on('tap', function(evt) {
+            if (evt.target === cy) {
+                tooltip.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
