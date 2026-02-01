@@ -26,9 +26,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/YOUR_USERNAME/arggraph"
-Repository = "https://github.com/YOUR_USERNAME/arggraph"
-Issues = "https://github.com/YOUR_USERNAME/arggraph/issues"
+Homepage = "https://github.com/blue-eclectus/SciArgGraph"
+Repository = "https://github.com/blue-eclectus/SciArgGraph"
+Issues = "https://github.com/blue-eclectus/SciArgGraph/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["argviz"]
