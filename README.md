@@ -3,7 +3,7 @@
 ArgGraph is a framework for representing scientific arguments as directed acyclic graphs. It includes tools for querying and visualizing argument graphs. The framework is designed for compatibility with Bayesian networks, with documented CPT generation rules for downstream probabilistic analysis.
 
 [![Example argument graph](examples/visualization_screenshot.png)](https://blue-eclectus.github.io/SciArgGraph/examples/visualization.html)
-*Click the image to explore the interactive version.*
+*Click the image to explore the interactive version. This graph represents reasoning from a portion of [this paper](https://dx.doi.org/10.1016/S0140-6736(21)00869-2).*
 
 ## Overview
 
